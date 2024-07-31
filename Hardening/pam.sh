@@ -23,8 +23,13 @@ RHEL(){
 DEBIAN(){
     # Fix config
     DEBIAN_FRONTEND=noninteractive 
-    pam-auth-update --force
+    if command -v pam-auth-update ; then
+        pam-auth-update --force
 
+    else
+        apt install --reinstall -o Dpkg::Options::="--force-confmiss" $(dpkg -S /etc/pam.d/\* | cut -d ':' -f 1)
+
+    fi 
     # Fix modules
     # /lib/x86_64-linux-gnu/security
     # /usr/lib/x86_64-linux-gnu/security

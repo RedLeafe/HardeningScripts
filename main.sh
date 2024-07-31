@@ -45,9 +45,10 @@ printf "############Running Hardening Scripts############\n\n"
 ./Hardening/container.sh &
 ./Hardening/cron.sh &
 ./Hardening/pam.sh &
-./Hardening/password.sh &
 
 wait
+
+./Hardening/password.sh
 
 printf "############Running Enumeration Scripts############\n\n"
 ./Enum/db.sh &

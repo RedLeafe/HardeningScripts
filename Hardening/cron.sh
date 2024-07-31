@@ -13,24 +13,23 @@ CHECKERR() {
 
 }
 
-if [ ! -z "$REVERT" ]; then
-    if [ -f "/etc/rc.d/cron" ]; then
-        /etc/rc.d/cron restart
-        CHECKERR
-    else
-        $sys cron start || $sys restart cron || $sys crond start || $sys restart crond 
-        CHECKERR
-    fi
-    echo "cron started"
+#if [ ! -z "$REVERT" ]; then
+#    if [ -f "/etc/rc.d/cron" ]; then
+#        /etc/rc.d/cron restart
+#        CHECKERR
+#    else
+#        $sys cron start || $sys restart cron || $sys crond start || $sys restart crond 
+#        CHECKERR
+#    fi
+#    echo "cron started"
+
+if [ -f "/etc/rc.d/cron" ]; then
+    /etc/rc.d/cron stop
+    CHECKERR
 else
-    if [ -f "/etc/rc.d/cron" ]; then
-        /etc/rc.d/cron stop
-        CHECKERR
-    else
-        $sys cron stop || $sys stop cron || $sys crond stop || $sys stop crond
-        CHECKERR
-    fi
-    echo "cron stopped"
+    $sys cron stop || $sys stop cron || $sys crond stop || $sys stop crond
+    CHECKERR
 fi
+echo "cron stopped"
 
 echo cron completed
