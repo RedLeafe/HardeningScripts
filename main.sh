@@ -1,6 +1,6 @@
 #!/bin/bash
 
-while getopts "hvf:" flag; do
+while getopts "hvi:" flag; do
   case $flag in
     h)
       # Display script help information
@@ -49,7 +49,7 @@ wait
 printf "############Running Hardening Scripts############\n\n"
 ./Hardening/container.sh &
 ./Hardening/cron.sh &
-./Hardening/pam.sh &
+./Hardening/pam.sh
 
 wait
 
@@ -59,7 +59,7 @@ printf "############Running Enumeration Scripts############\n\n"
 ./Enum/db.sh &
 ./Enum/inventory.sh &
 ./Enum/kube.sh &
-./Enum/web.sh &
+./Enum/web.sh
 
 wait
 

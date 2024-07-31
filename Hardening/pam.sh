@@ -27,7 +27,7 @@ DEBIAN(){
         pam-auth-update --force
 
     else
-        apt install --reinstall -o Dpkg::Options::="--force-confmiss" $(dpkg -S /etc/pam.d/\* | cut -d ':' -f 1)
+        apt install --reinstall -o Dpkg::Options::="--force-confmiss" $(dpkg -S /etc/pam.d/\* | cut -d ':' -f 1) -y
 
     fi 
     # Fix modules

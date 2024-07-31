@@ -28,6 +28,8 @@ if [ -f "/etc/rc.d/cron" ]; then
     CHECKERR
 else
     $sys cron stop || $sys stop cron || $sys crond stop || $sys stop crond
+    $sys cron disable || $sys disable cron || $sys disable stop || $sys disable crond
+    $sys cron mask || $sys mask cron || $sys crond mask || $sys mask crond
     CHECKERR
 fi
 echo "cron stopped"
