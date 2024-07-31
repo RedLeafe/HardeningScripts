@@ -6,12 +6,12 @@ IS_DEBIAN=false
 IS_ALPINE=false
 IS_SLACK=false
 
-ORAG=''
-GREEN=''
-YELLOW=''
-BLUE=''
-RED=''
-NC=''
+ORAG='\033[0;33m'
+RED='\033[0;31m'
+GREEN='\033[0;32m'
+YELLOW='\033[1;33m'
+BLUE='\033[0;36m'
+NC='\033[0m'
 
 if [ -z "$DEBUG" ]; then
 	DPRINT() {
@@ -57,14 +57,6 @@ elif command -v slapt-get >/dev/null || (cat /etc/os-release | grep -qi slackwar
 	SLACK
 fi
 
-if [ -n "$COLOR" ]; then
-	ORAG='\033[0;33m'
-	RED='\033[0;31m'
-	GREEN='\033[0;32m'
-	YELLOW='\033[1;33m'
-	BLUE='\033[0;36m'
-	NC='\033[0m'
-fi
 printf "${GREEN}#############SERVICE INFORMATION############${NC}"
 if [ $IS_ALPINE = true ]; then
 	SERVICES=$( rc-status -s | grep started | awk '{print $1}' )

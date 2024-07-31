@@ -1,4 +1,4 @@
 #!/bin/bash
 
-printf ############Check Changes############\n\n
+printf "############Check Changes############\n\n"
 ./post/diff.sh

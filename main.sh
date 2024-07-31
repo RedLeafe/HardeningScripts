@@ -1,17 +1,20 @@
 #!/bin/bash
 
-printf ############Stolen Scripts############\n\n
+printf "############Stolen Scripts############\n\n"
 
-printf ############Running Updates############\n\n
+# enable scripts
+find . -type f -name "*.sh" -exec chmod +x {} \;
+
+printf "############Running Updates############\n\n"
 ./start/updates.sh
 
-printf ############Running Base Set Up############\n\n
+printf "############Running Base Set Up############\n\n"
 ./start/backups.sh &&
 ./start/ipt.sh &&
 
 wait
 
-printf ############Running Hardening Scripts############\n\n
+printf "############Running Hardening Scripts############\n\n"
 ./Hardening/container.sh &&
 ./Hardening/cron.sh &&
 ./Hardening/pam.sh &&
@@ -19,7 +22,7 @@ printf ############Running Hardening Scripts############\n\n
 
 wait
 
-printf ############Running Enumeration Scripts############\n\n
+printf "############Running Enumeration Scripts############\n\n"
 ./Enum/name.sh &&
 ./Enum/db.sh &&
 ./Enum/inventory.sh &&
@@ -28,4 +31,4 @@ printf ############Running Enumeration Scripts############\n\n
 
 wait
 
-printf ############Completed Initial Configuration############\n\n
+printf "############Completed Initial Configuration############\n\n"
