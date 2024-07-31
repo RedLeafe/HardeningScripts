@@ -1,6 +1,8 @@
 #!/bin/sh
 # @d_tranman/Nigel Gerald/Nigerald
 
+printf "############Base Info############\n\n"
+
 if [ -z "$DEBUG" ]; then
     DPRINT() { 
         "$@" 2>/dev/null 

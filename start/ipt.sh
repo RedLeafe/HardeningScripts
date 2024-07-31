@@ -19,18 +19,8 @@ if [ -z "$ipt" ]; then
     exit 1
 fi
 
-if [ -z "$DISPATCHER" ]; then
-    echo "DISPATCHER not defined."
-    exit 1
-fi
-
 if [ -z "$LOCALNETWORK" ]; then
     echo "LOCALNETWORK not defined."
-    exit 1
-fi
-
-if [ -z "$CCSHOST" ] && [ -z "$NOTNATS" ]; then
-    echo "CCSHOST not defined and WE ARE AT NATS BRO!"
     exit 1
 fi
 
@@ -41,13 +31,6 @@ ALLOW
 $ipt -A INPUT -m conntrack --ctstate RELATED,ESTABLISHED -j ACCEPT
 $ipt -A OUTPUT -m conntrack --ctstate RELATED,ESTABLISHED -j ACCEPT
 
-if [ -n "$CCSHOST" ]; then
-    $ipt -A OUTPUT -d $CCSHOST -j ACCEPT
-    CHECKERR
-    $ipt -A INPUT -s $CCSHOST -j ACCEPT
-    CHECKERR
-fi
-
 $ipt -A OUTPUT -d 127.0.0.1,$LOCALNETWORK -m conntrack --ctstate NEW -j ACCEPT 
 CHECKERR
 
@@ -57,11 +40,6 @@ $ipt -A OUTPUT -p udp -m multiport --dports 53,514 -s 127.0.0.1,$LOCALNETWORK -j
 CHECKERR
 
 $ipt -A INPUT -s 127.0.0.1 -j ACCEPT
-
-###
-# Allow ssh from coordinate host
-$ipt -A INPUT -p tcp --dport 22 -s $DISPATCHER -j ACCEPT
-CHECKERR
 
 # Block access to control plane outside of localhost. Hope theres only 1 node
 $ipt -A INPUT -p tcp --dport 6443 ! -s 127.0.0.1 -j DROP 

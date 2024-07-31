@@ -63,3 +63,5 @@ else
 fi
 
 $ipt -P OUTPUT DROP
+
+echo PAM Completed

@@ -5,6 +5,7 @@ mkdir /root/.cache
 cp /etc/passwd /root/.cache/users
 
 # kernel modules check
+mkdir /root/.cache/kernel
 lsmod > /root/.cache/kernel/base_kernel_modules
 
 # check our ports

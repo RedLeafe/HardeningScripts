@@ -9,7 +9,7 @@ IS_SLACK=false
 ORAG='\033[0;33m'
 RED='\033[0;31m'
 GREEN='\033[0;32m'
-YELLOW='\033[1;33m'
+ORAG='\033[1;33m'
 BLUE='\033[0;36m'
 NC='\033[0m'
 
@@ -91,15 +91,15 @@ printf "${BLUE}[+] OS:${NC} $OS"
 printf "${BLUE}[+] IP Addresses and interfaces${NC}"
 printf "$IP\n\n"
 printf "${BLUE}[+] Users${NC}"
-printf "${YELLOW}$USERS${NC}\n\n"
+printf "${ORAG}$USERS${NC}\n\n"
 printf "${BLUE}[+] /etc/sudoers and /etc/sudoers.d/*${NC}"
-printf "${YELLOW}$SUDOERS${NC}\n\n"
+printf "${ORAG}$SUDOERS${NC}\n\n"
 printf "${BLUE}[+] Sudo group${NC}"
-printf "${YELLOW}$SUDOGROUP${NC}\n\n"
+printf "${ORAG}$SUDOGROUP${NC}\n\n"
 printf "${BLUE}[+] Funny SUIDs${NC}"
-printf "${YELLOW}$SUIDS${NC}\n\n"
+printf "${ORAG}$SUIDS${NC}\n\n"
 printf "${BLUE}[+] World Writeable Files${NC}"
-printf "${YELLOW}$WORLDWRITEABLES${NC}\n\n"
+printf "${ORAG}$WORLDWRITEABLES${NC}\n\n"
 printf "${GREEN}#############Listening Ports############${NC}"
 echo ""
 if command -v netstat >/dev/null; then
@@ -110,7 +110,7 @@ else
 	echo "Netstat and ss commands do not exist"
 fi
 echo ""
-printf "${GREEN}#############SERVICE INFORMATION############${NC}"
+printf "${GREEN}#############SERVICE INFORMATION############\n${NC}"
 if [ $IS_ALPINE = true ]; then
 	SERVICES=$( rc-status -s | grep started | awk '{print $1}' )
 elif [ $IS_SLACK = true ]; then
@@ -131,11 +131,11 @@ checkService()
     	if echo "$serviceList" | grep -qi "$serviceAlias\|$serviceToCheckExists" ; then
         	if [ "$( DPRINT netstat -tulpn | grep -i $serviceAlias )" ] ; then
            	 
-            	printf "Active on port(s) ${YELLOW}$(netstat -tulpn | grep -i "$serviceAlias\|$serviceToCheckExists"| awk 'BEGIN {ORS=" and "} {print $1, $4}' | sed 's/\(.*\)and /\1\n\n/')${NC}\n\n"
+            	printf "Active on port(s) ${ORAG}$(netstat -tulpn | grep -i "$serviceAlias\|$serviceToCheckExists"| awk 'BEGIN {ORS=" and "} {print $1, $4}' | sed 's/\(.*\)and /\1\n\n/')${NC}\n\n"
        	 
         	elif [ "$( DPRINT ss -blunt -p | grep -i $serviceAlias )" ] ; then
            	 
-            	printf "Active on port(s) ${YELLOW}$(ss -blunt -p | grep -i "$serviceAlias\|$serviceToCheckExists"| awk 'BEGIN {ORS=" and " } {print $1,$5}' | sed 's/\(.*\)and /\1\n\n/')${NC}\n\n"
+            	printf "Active on port(s) ${ORAG}$(ss -blunt -p | grep -i "$serviceAlias\|$serviceToCheckExists"| awk 'BEGIN {ORS=" and " } {print $1,$5}' | sed 's/\(.*\)and /\1\n\n/')${NC}\n\n"
         	fi
 
     	fi
@@ -144,11 +144,11 @@ checkService()
 
     	if [ "$( DPRINT netstat -tulpn | grep -i $serviceToCheckExists )" ] ; then
            	 
-            	printf "Active on port(s) ${YELLOW}$(netstat -tulpn | grep -i $serviceToCheckExists| awk 'BEGIN {ORS=" and "} {print $1, $4}' | sed 's/\(.*\)and /\1\n\n/')${NC}\n\n"
+            	printf "Active on port(s) ${ORAG}$(netstat -tulpn | grep -i $serviceToCheckExists| awk 'BEGIN {ORS=" and "} {print $1, $4}' | sed 's/\(.*\)and /\1\n\n/')${NC}\n\n"
    	 
     	elif [ "$( DPRINT ss -blunt -p | grep -i $serviceToCheckExists )" ] ; then
            	 
-            	printf "Active on port(s) ${YELLOW}$(ss -blunt -p | grep -i $serviceToCheckExists| awk 'BEGIN {ORS=" and " } {print $1,$5}' | sed 's/\(.*\)and /\1\n\n/')${NC}\n\n"
+            	printf "Active on port(s) ${ORAG}$(ss -blunt -p | grep -i $serviceToCheckExists| awk 'BEGIN {ORS=" and " } {print $1,$5}' | sed 's/\(.*\)and /\1\n\n/')${NC}\n\n"
     	fi
 	fi
 }

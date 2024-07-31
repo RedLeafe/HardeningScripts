@@ -32,3 +32,5 @@ else
     fi
     echo "cron stopped"
 fi
+
+echo cron completed
