@@ -18,5 +18,6 @@ for u in $(cat /etc/passwd | grep -E "/bin/.*sh" | cut -d":" -f1); do
 	echo "$u,$pass"
 done	
 
-for u in $(cat /etc/passwd | grep -vE "/bin/.*sh" | cut -d":" -f1); 
-do passwd -l $u; done
+for u in $(cat /etc/passwd | grep -vE "/bin/.*sh" | cut -d":" -f1); do 
+	passwd -l $u >/dev/null 2>&1
+done

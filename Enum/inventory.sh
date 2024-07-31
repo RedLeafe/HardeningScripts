@@ -9,7 +9,7 @@ IS_SLACK=false
 ORAG='\033[0;33m'
 RED='\033[0;31m'
 GREEN='\033[0;32m'
-ORAG='\033[1;33m'
+YELLOW='\033[1;33m'
 BLUE='\033[0;36m'
 NC='\033[0m'
 
@@ -110,7 +110,7 @@ else
 	echo "Netstat and ss commands do not exist"
 fi
 echo ""
-printf "${GREEN}#############SERVICE INFORMATION############\n${NC}"
+printf "${GREEN}#############SERVICE INFORMATION############${NC}\n"
 if [ $IS_ALPINE = true ]; then
 	SERVICES=$( rc-status -s | grep started | awk '{print $1}' )
 elif [ $IS_SLACK = true ]; then
