@@ -110,7 +110,7 @@ else
 	echo "Netstat and ss commands do not exist"
 fi
 echo ""
-printf "${GREEN}#############SERVICE INFORMATION############${NC}\n"
+printf "${GREEN}#############SERVICE INFORMATION############${NC}"
 if [ $IS_ALPINE = true ]; then
 	SERVICES=$( rc-status -s | grep started | awk '{print $1}' )
 elif [ $IS_SLACK = true ]; then

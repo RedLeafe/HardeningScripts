@@ -1,6 +1,6 @@
 #!/bin/sh
 
-if command -v sysctl >/devl/null; then
+if command -v sysctl >/dev/null; then
 
     if command -v docker >/dev/null || command -v kubectl >/dev/null || command -v podman; then
         echo "Container detected, skipping"
@@ -14,5 +14,5 @@ if command -v sysctl >/devl/null; then
     if [ -f /proc/sys/user/max_user_namespaces ]; then
         sysctl -w user.max_user_namespaces=0
     fi
-    
+
 fi

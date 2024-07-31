@@ -2,6 +2,8 @@
 # @d_tranman/Nigel Gerald/Nigerald
 
 ipt=$(command -v iptables || command -v /sbin/iptables || command -v /usr/sbin/iptables)
+ipt-save=$(command -v iptables-save || command -v /sbin/iptables-save || command -v /usr/sbin/iptables-save)
+LOCALNETWORK=$1
 
 ALLOW() {
     $ipt -P INPUT ACCEPT; $ipt -P OUTPUT ACCEPT ; $ipt -P FORWARD ACCEPT ; $ipt -F; $ipt -X
@@ -19,13 +21,8 @@ if [ -z "$ipt" ]; then
     exit 1
 fi
 
-if [ -z "$LOCALNETWORK" ]; then
-    echo "LOCALNETWORK not defined."
-    exit 1
-fi
-
-iptables-save > /opt/rules.v4
-iptables-save > /root/.cache/rules.v4
+ipt-save > /opt/rules.v4
+ipt-save > /root/.cache/rules.v4
 ALLOW
 
 $ipt -A INPUT -m conntrack --ctstate RELATED,ESTABLISHED -j ACCEPT

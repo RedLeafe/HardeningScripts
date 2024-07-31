@@ -24,6 +24,11 @@ while getopts "hvf:" flag; do
   esac
 done
 
+if [ -z "$LOCALNETWORK" ]; then
+	echo "Usage: main.sh [-i LocalNetwork]"
+	exit 1
+fi
+
 
 printf "############Stolen Scripts############\n\n"
 
@@ -37,7 +42,7 @@ printf "############Running Updates############\n\n"
 
 printf "############Running Base Set Up############\n\n"
 ./start/backups.sh &
-./start/ipt.sh &
+./start/ipt.sh "$LOCALNETWORK"
 
 wait
 
