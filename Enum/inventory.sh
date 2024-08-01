@@ -65,7 +65,7 @@ printf "${GREEN}
 ##################################
 ${NC}\n\n"
 
-printf "\n\n${GREEN}#############HOST INFORMATION############${NC}\n\n"
+printf "${GREEN}#############HOST INFORMATION############${NC}\n\n"
 
 HOST=$( DPRINT hostname || DPRINT cat /etc/hostname )
 OS=$( cat /etc/*-release  | grep PRETTY_NAME | sed 's/PRETTY_NAME=//' | sed 's/"//g' )
@@ -87,8 +87,8 @@ else
 fi
 
 printf "${BLUE}[+] Hostname:${NC} $HOST"
-printf "${BLUE}[+] OS:${NC} $OS"
-printf "${BLUE}[+] IP Addresses and interfaces${NC}"
+printf "\n${BLUE}[+] OS:${NC} $OS"
+printf "\n${BLUE}[+] IP Addresses and interfaces${NC}"
 printf "$IP\n\n"
 printf "${BLUE}[+] Users${NC}"
 printf "${ORAG}$USERS${NC}\n\n"

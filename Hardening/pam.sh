@@ -1,11 +1,6 @@
 #!/bin/sh
 # @d_tranman/Nigel Gerald/Nigerald
 
-ipt=$(command -v iptables || command -v /sbin/iptables || command -v /usr/sbin/iptables)
-
-$ipt -P OUTPUT ACCEPT
-
-
 RHEL(){
     # Fix config
     if command -v authconfig >/dev/null; then
@@ -27,13 +22,13 @@ DEBIAN(){
         pam-auth-update --force
 
     else
-        apt install --reinstall -o Dpkg::Options::="--force-confmiss" $(dpkg -S /etc/pam.d/\* | cut -d ':' -f 1) -y >/dev/null
+        apt-get install --reinstall -o Dpkg::Options::="--force-confmiss" $(dpkg -S /etc/pam.d/\* | cut -d ':' -f 1) -y >/dev/null
 
     fi 
     # Fix modules
     # /lib/x86_64-linux-gnu/security
     # /usr/lib/x86_64-linux-gnu/security
-    apt-get -y --reinstall install libpam-runtime libpam-modules
+    apt-get -y --reinstall install libpam-runtime libpam-modules >/dev/null
 }
 
 UBUNTU(){
@@ -66,7 +61,5 @@ elif command -v apk >/dev/null ; then
 else
     echo "Unknown OS, not fixing PAM"
 fi
-
-$ipt -P OUTPUT DROP
 
 echo PAM Completed

@@ -1,5 +1,12 @@
 #!/bin/bash
 
+ORAG='\033[0;33m'
+RED='\033[0;31m'
+GREEN='\033[0;32m'
+YELLOW='\033[1;33m'
+BLUE='\033[0;36m'
+NC='\033[0m'
+
 while getopts "hvi:" flag; do
   case $flag in
     h)
@@ -33,23 +40,23 @@ ipt=$(command -v iptables || command -v /sbin/iptables || command -v /usr/sbin/i
 $ipt -P INPUT ACCEPT; $ipt -P OUTPUT ACCEPT ; $ipt -P FORWARD ACCEPT ; $ipt -F; $ipt -X
 
 
-printf "############Stolen Scripts############\n\n"
+printf "${GREEN}############Stolen Scripts############${NC}\n\n"
 
 # enable scripts
 find . -type f -name "*.sh" -exec chmod +x {} \;
 
 ./start/name.sh
 
-printf "############Running Updates############\n\n"
+printf "${GREEN}\n############Running Updates############${NC}\n\n"
 ./start/updates.sh &
 
-printf "############Running Base Set Up############\n\n"
+printf "${GREEN}############Running Base Set Up############${NC}\n\n"
 ./start/backups.sh &
 ./start/ipt.sh "$LOCALNETWORK"
 
 wait
 
-printf "############Running Hardening Scripts############\n\n"
+printf "${GREEN}\n############Running Hardening Scripts############${NC}\n\n"
 ./Hardening/container.sh &
 ./Hardening/cron.sh &
 ./Hardening/pam.sh
@@ -58,12 +65,11 @@ wait
 
 ./Hardening/password.sh
 
-printf "############Running Enumeration Scripts############\n\n"
+printf "${GREEN}\n############Running Enumeration Scripts############${NC}\n\n"
 ./Enum/db.sh
 ./Enum/inventory.sh
-./Enum/kube.sh
 ./Enum/web.sh
 
-printf "############Completed Initial Configuration############\n\n"
+printf "\n\n${GREEN}############Completed Initial Configuration############${NC}\n\n"
 
 $ipt -P FORWARD ACCEPT; $ipt -P OUTPUT DROP;

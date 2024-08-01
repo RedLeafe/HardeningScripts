@@ -1,11 +1,11 @@
 #!/bin/bash
 
 # backup /etc/passwd
-mkdir /root/.cache
+mkdir /root/.cache 2>/dev/null
 cp /etc/passwd /root/.cache/users
 
 # kernel modules check
-mkdir /root/.cache/kernel
+mkdir /root/.cache/kernel 2>/dev/null
 lsmod > /root/.cache/kernel/base_kernel_modules
 
 # check our ports
@@ -13,7 +13,7 @@ lsmod > /root/.cache/kernel/base_kernel_modules
 ( netstat -tpwn 2>/dev/null || ss -pnt | grep ESTAB 2>/dev/null ) > /root/.cache/estab
 
 # pam
-mkdir /etc/pam.d/pam/
+mkdir /etc/pam.d/pam/ 2>/dev/null
 cp -R /etc/pam.d/ /root/.cache/pam
 
 # profiles
