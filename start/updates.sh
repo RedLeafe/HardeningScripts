@@ -1,6 +1,13 @@
 #!/bin/sh
 # @d_tranman/Nigel Gerald/Nigerald and c0ve
 
+ORAG='\033[0;33m'
+RED='\033[0;31m'
+GREEN='\033[0;32m'
+YELLOW='\033[1;33m'
+BLUE='\033[0;36m'
+NC='\033[0m'
+
 RHEL(){
     yum check-update -y >/dev/null
     yum install net-tools iproute sed curl wget bash -y > /dev/null
@@ -49,3 +56,4 @@ elif command -v slapt-get >/dev/null || (cat /etc/os-release | grep -i slackware
     SLACK
 fi
 
+printf "${RED}Updates Finished${NC}}"

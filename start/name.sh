@@ -1,7 +1,14 @@
 #!/bin/sh
 # @d_tranman/Nigel Gerald/Nigerald
 
-printf "############Base Info############\n\n"
+ORAG='\033[0;33m'
+RED='\033[0;31m'
+GREEN='\033[0;32m'
+YELLOW='\033[1;33m'
+BLUE='\033[0;36m'
+NC='\033[0m'
+
+printf "${GREEN}############Base Info############\n\n${NC}"
 
 if [ -z "$DEBUG" ]; then
     DPRINT() { 

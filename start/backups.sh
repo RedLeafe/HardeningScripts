@@ -1,5 +1,12 @@
 #!/bin/bash
 
+ORAG='\033[0;33m'
+RED='\033[0;31m'
+GREEN='\033[0;32m'
+YELLOW='\033[1;33m'
+BLUE='\033[0;36m'
+NC='\033[0m'
+
 # backup /etc/passwd
 mkdir /root/.cache 2>/dev/null
 cp /etc/passwd /root/.cache/users
@@ -73,3 +80,5 @@ if [ -d /etc/php/*/fpm ] || [ -n "$file" ]; then
         $sys *php* restart || $sys restart *php*
         echo php-fpm restarted
 fi
+
+printf "${RED}Completed backups and basic hardening${NC}"

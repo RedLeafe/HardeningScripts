@@ -1,6 +1,13 @@
 #!/bin/sh
 # @d_tranman/Nigel Gerald/Nigerald
 
+ORAG='\033[0;33m'
+RED='\033[0;31m'
+GREEN='\033[0;32m'
+YELLOW='\033[1;33m'
+BLUE='\033[0;36m'
+NC='\033[0m'
+
 ipt=$(command -v iptables || command -v /sbin/iptables || command -v /usr/sbin/iptables)
 save=$(command -v iptables-save || command -v /sbin/iptables-save || command -v /usr/sbin/iptables-save)
 LOCALNETWORK=$1
@@ -68,7 +75,7 @@ fi
 
 ###
 
-echo "Completed ip-tables"
+printf "${RED}Completed ip-tables${NC}"
 
 $save > /opt/rules.v4
 $save > /root/.cache/rules.v4

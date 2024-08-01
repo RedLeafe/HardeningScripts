@@ -1,6 +1,13 @@
 #!/bin/sh
 # @d_tranman/Nigel Gerald/Nigerald
 
+ORAG='\033[0;33m'
+RED='\033[0;31m'
+GREEN='\033[0;32m'
+YELLOW='\033[1;33m'
+BLUE='\033[0;36m'
+NC='\033[0m'
+
 RHEL(){
     # Fix config
     if command -v authconfig >/dev/null; then
@@ -62,4 +69,4 @@ else
     echo "Unknown OS, not fixing PAM"
 fi
 
-echo PAM Completed
+printf "${RED}PAM Finished${NC}}"
