@@ -5,9 +5,6 @@ ipt=$(command -v iptables || command -v /sbin/iptables || command -v /usr/sbin/i
 save=$(command -v iptables-save || command -v /sbin/iptables-save || command -v /usr/sbin/iptables-save)
 LOCALNETWORK=$1
 
-ALLOW() {
-    $ipt -P INPUT ACCEPT; $ipt -P OUTPUT ACCEPT ; $ipt -P FORWARD ACCEPT ; $ipt -F; $ipt -X
-}
 CHECKERR() {
     if [ ! $? -eq 0 ]; then
         echo "ERROR, EXITTING TO PREVENT LOCKOUT"
@@ -23,7 +20,6 @@ fi
 
 $save > /opt/rules.v4
 $save > /root/.cache/rules.v4
-ALLOW
 
 $ipt -A INPUT -m conntrack --ctstate RELATED,ESTABLISHED -j ACCEPT
 $ipt -A OUTPUT -m conntrack --ctstate RELATED,ESTABLISHED -j ACCEPT
@@ -71,9 +67,8 @@ if command -v 'docker' > /dev/null ; then
 fi
 
 ###
-$ipt -P FORWARD ACCEPT; $ipt -P OUTPUT DROP;
 
-echo "Done"
+echo "Completed ip-tables"
 
 $save > /opt/rules.v4
 $save > /root/.cache/rules.v4

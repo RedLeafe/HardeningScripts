@@ -29,6 +29,9 @@ if [ -z "$LOCALNETWORK" ]; then
 	exit 1
 fi
 
+ipt=$(command -v iptables || command -v /sbin/iptables || command -v /usr/sbin/iptables)
+$ipt -P INPUT ACCEPT; $ipt -P OUTPUT ACCEPT ; $ipt -P FORWARD ACCEPT ; $ipt -F; $ipt -X
+
 
 printf "############Stolen Scripts############\n\n"
 
@@ -56,11 +59,11 @@ wait
 ./Hardening/password.sh
 
 printf "############Running Enumeration Scripts############\n\n"
-./Enum/db.sh &
-./Enum/inventory.sh &
-./Enum/kube.sh &
+./Enum/db.sh
+./Enum/inventory.sh
+./Enum/kube.sh
 ./Enum/web.sh
 
-wait
-
 printf "############Completed Initial Configuration############\n\n"
+
+$ipt -P FORWARD ACCEPT; $ipt -P OUTPUT DROP;
