@@ -41,4 +41,4 @@ else
 fi
 echo "cron stopped"
 
-printf "${RED}Cron Completed${NC}"
+printf "\n${RED}Cron Completed${NC}\n"

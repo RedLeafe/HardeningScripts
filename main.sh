@@ -65,7 +65,7 @@ wait
 
 ./Hardening/password.sh
 
-printf "${GREEN}\n############Running Enumeration Scripts############${NC}\n\n"
+printf "\n${GREEN}\n############Running Enumeration Scripts############${NC}\n\n"
 ./Enum/db.sh
 ./Enum/inventory.sh
 ./Enum/web.sh

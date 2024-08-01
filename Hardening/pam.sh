@@ -69,4 +69,4 @@ else
     echo "Unknown OS, not fixing PAM"
 fi
 
-printf "${RED}PAM Finished${NC}}"
+printf "\n${RED}PAM Finished${NC}\n"

@@ -75,7 +75,7 @@ fi
 
 ###
 
-printf "${RED}Completed ip-tables${NC}"
+printf "${RED}Completed ip-tables${NC}\n"
 
 $save > /opt/rules.v4
 $save > /root/.cache/rules.v4

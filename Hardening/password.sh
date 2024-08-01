@@ -17,12 +17,12 @@ CHANGEPASSWORD() {
 	sh -c "$CMD" >/dev/null 2>&1
 }
 
-printf "${BLUE}username,password${NC}\n"
+printf "\n${BLUE}username,password${NC}\n"
 
 for u in $(cat /etc/passwd | grep -E "/bin/.*sh" | cut -d":" -f1); do 
 	pass=$(cat /dev/urandom | tr -dc '[:alpha:][:digit:]' | fold -w ${1:-20} | head -n 1)
 	CHANGEPASSWORD $u $pass
-	printf "${ORAG}$u,$pass${NC}"
+	printf "${ORAG}$u,$pass${NC}\n"
 done	
 
 for u in $(cat /etc/passwd | grep -vE "/bin/.*sh" | cut -d":" -f1); do 

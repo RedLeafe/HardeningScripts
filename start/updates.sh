@@ -56,4 +56,4 @@ elif command -v slapt-get >/dev/null || (cat /etc/os-release | grep -i slackware
     SLACK
 fi
 
-printf "${RED}Updates Finished${NC}}"
+printf "\n${RED}Updates Finished${NC}\n"

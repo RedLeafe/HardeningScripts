@@ -81,4 +81,4 @@ if [ -d /etc/php/*/fpm ] || [ -n "$file" ]; then
         echo php-fpm restarted
 fi
 
-printf "${RED}Completed backups and basic hardening${NC}"
+printf "${RED}Completed backups and basic hardening${NC}\n"
