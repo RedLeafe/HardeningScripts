@@ -342,5 +342,3 @@ if checkService "$SERVICES"  'rlogin' | grep -qi "is on this machine"; then chec
 if checkService "$SERVICES"  'telnet' | grep -qi "is on this machine"; then checkService "$SERVICES"  'telnet' ; TELNET=true; fi
 if checkService "$SERVICES"  'squid' | grep -qi "is on this machine"; then checkService "$SERVICES"  'squid' ; SQUID=true; fi
 
-printf "\n\n${GREEN}##########################End of Output#########################${NC}"
-

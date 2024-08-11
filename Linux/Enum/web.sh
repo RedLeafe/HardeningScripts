@@ -57,7 +57,7 @@ elif command -v slapt-get >/dev/null || (cat /etc/os-release | grep -qi slackwar
 	SLACK
 fi
 
-printf "${GREEN}#############SERVICE INFORMATION############${NC}"
+printf "\n\n${GREEN}#############WEB INFORMATION############${NC}"
 if [ $IS_ALPINE = true ]; then
 	SERVICES=$( rc-status -s | grep started | awk '{print $1}' )
 elif [ $IS_SLACK = true ]; then
