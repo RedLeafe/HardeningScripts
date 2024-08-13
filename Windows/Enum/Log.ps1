@@ -40,13 +40,13 @@ catch {
 
 ######### Sysmon Setup #########
 if ($Env:PROCESSOR_ARCHITECTURE -eq "AMD64") {
-    C:\Windows\System32\Sysmon64.exe -accepteula -i
-    C:\Windows\System32\Sysmon64.exe -c C:\Windows\System32\smce.xml
+    ..\Runnables\Sysmon64.exe -accepteula -i
+    ..\Runnables\Sysmon64.exe -c ..\Runnables\smce.xml
     Write-Output "$Env:ComputerName [INFO] Sysmon64 installed and configured"
 }
 else {
-    C:\Windows\System32\Sysmon.exe -accepteula -i 
-    C:\Windows\System32\Sysmon.exe -c C:\Windows\System32\smce.xml
+    ..\Runnables\Sysmon.exe -accepteula -i 
+    ..\Runnables\Sysmon.exe -c ..\Runnables\smce.xml
     Write-Output "$Env:ComputerName [INFO] Sysmon32 installed and configured"
 }
 
