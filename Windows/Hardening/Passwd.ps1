@@ -14,8 +14,6 @@ param(
 
 Add-Type -AssemblyName System.Web
 
-Get-WmiObject Win32_NetworkAdapterConfiguration | ? { $_.IpAddress -ne $null } | % { $_.ServiceName + "`n" + $_.IPAddress + "`n" }
-
 $Error.Clear()
 $ErrorActionPreference = "SilentlyContinue"
 

@@ -72,4 +72,10 @@ printf "\n${GREEN}\n############Running Enumeration Scripts############${NC}\n\n
 
 printf "\n\n${GREEN}############Completed Initial Configuration############${NC}\n\n"
 
+DEBIAN_FRONTEND=noninteractive apt-get -y install iptables-persistent
+
 $ipt -P FORWARD ACCEPT; $ipt -P OUTPUT DROP;
+
+$save > /etc/iptables/rules.v4
+
+systemctl start reboot.target

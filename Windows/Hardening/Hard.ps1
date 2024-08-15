@@ -2,11 +2,11 @@ $Error.Clear()
 $ErrorActionPreference = "Continue"
 
 
-Write-Output "#########################"
+Write-Output "`n#########################"
 Write-Output "#                       #"
 Write-Output "#         Hard          #"
 Write-Output "#                       #"
-Write-Output "#########################"
+Write-Output "#########################`n"
 
 $DC = $false
 if (Get-WmiObject -Query "select * from Win32_OperatingSystem where ProductType='2'") {

@@ -1,11 +1,11 @@
 $Error.Clear()
 $ErrorActionPreference = "SilentlyContinue"
 
-Write-Output "#########################"
+Write-Output "`n#########################"
 Write-Output "#                       #"
 Write-Output "#          Log          #"
 Write-Output "#                       #"
-Write-Output "#########################"
+Write-Output "#########################`n"
 
 ######### Logging#########
 
@@ -37,16 +37,17 @@ catch {
     Write-Output "$Env:ComputerName [ERROR] IIS Logging failed"
 }
 
+$pwd = Get-Location
 
 ######### Sysmon Setup #########
 if ($Env:PROCESSOR_ARCHITECTURE -eq "AMD64") {
-    ..\Runnables\Sysmon64.exe -accepteula -i
-    ..\Runnables\Sysmon64.exe -c ..\Runnables\smce.xml
+    .\Runnables\Sysmon64.exe -accepteula -i
+    .\Runnables\Sysmon64.exe -c .\Runnables\smce.xml
     Write-Output "$Env:ComputerName [INFO] Sysmon64 installed and configured"
 }
 else {
-    ..\Runnables\Sysmon.exe -accepteula -i 
-    ..\Runnables\Sysmon.exe -c ..\Runnables\smce.xml
+    .\Runnables\Sysmon.exe -accepteula -i 
+    .\Runnables\Sysmon.exe -c .\Runnables\smce.xml
     Write-Output "$Env:ComputerName [INFO] Sysmon32 installed and configured"
 }
 

@@ -33,9 +33,10 @@ Write-Output "#########################"
 Write-Output "#                       #"
 Write-Output "#      Hardening        #"
 Write-Output "#                       #"
-Write-Output "#########################"
+Write-Output "#########################`n"
 
 .\Hardening\Passwd.ps1 -Admin $Admin -P1 $P1 -P2 $P2
+
 <#
 $pwd = Get-Location
 
@@ -57,12 +58,13 @@ Write-Output $results
 .\Hardening\NullSession.ps1
 .\Hardening\php.ps1
 .\Hardening\SMB.ps1
+.\Hardening\Firewall.ps1
 
-Write-Output "#########################"
+Write-Output "`n#########################"
 Write-Output "#                       #"
-Write-Output "#         Enum          #"
+Write-Output "#   Initializing Enum   #"
 Write-Output "#                       #"
-Write-Output "#########################"
+Write-Output "#########################`n"
 
 .\Enum\Log.ps1
 
@@ -70,9 +72,9 @@ Write-Output "#########################"
 
 .\Enum\Inv.ps1 > C:\Users\Administrator\Cache\Inventory.txt 2>&1
 
-.\Post\Comp.ps1 > C:\Users\Administrator\Cache\Changes.txt 2>&1
+.\Enum\Comp.ps1 > C:\Users\Administrator\Cache\Changes.txt 2>&1
 
-Write-Output "#########################"
+Write-Output "`n#########################"
 Write-Output "#                       #"
 Write-Output "#        Finish         #"
 Write-Output "#                       #"

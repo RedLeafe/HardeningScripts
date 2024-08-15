@@ -1,15 +1,15 @@
 $Error.Clear()
 $ErrorActionPreference = "SilentlyContinue"
 
-Write-Output "#########################"
+Write-Output "`n#########################"
 Write-Output "#                       #"
 Write-Output "#          Fix          #"
 Write-Output "#                       #"
-Write-Output "#########################"
+Write-Output "#########################`n"
 
 ######### Reset Policies #########
 Copy-Item C:\Windows\System32\GroupPolicy* C:\gp -Recurse | Out-Null
-Copy-Item C:\Windows\System32\GroupPolicy* C:\Users\Administrator\Cache -Recurse | Out-Null
+Copy-Item C:\Windows\System32\GroupPolicy* C:\Users\Administrator\Cache\gp -Recurse | Out-Null
 Remove-Item C:\Windows\System32\GroupPolicy* -Recurse -Force | Out-Null
 gpupdate /force
 Write-Output "$Env:ComputerName [INFO] Group Policy backed up to C:\gp and reset" 
