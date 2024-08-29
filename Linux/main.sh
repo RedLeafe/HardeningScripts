@@ -65,9 +65,12 @@ printf "${GREEN}\n############Running Hardening Scripts############${NC}\n\n"
 wait
 
 printf "\n${GREEN}\n############Running Enumeration Scripts############${NC}\n\n"
-./Enum/db.sh
-./Enum/inventory.sh
-./Enum/web.sh
+./Enum/db.sh > /root/.cache/db
+cat /root/.cache/db
+./Enum/inventory.sh > /root/.cache/inventory
+cat /root/.cache/inventory
+./Enum/web.sh > /root/.cache/web
+cat /root/.cache/web
 
 printf "\n\n${GREEN}############Completed Initial Configuration############${NC}\n\n"
 
