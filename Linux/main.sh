@@ -63,8 +63,6 @@ printf "${GREEN}\n############Running Hardening Scripts############${NC}\n\n"
 
 wait
 
-./Hardening/password.sh
-
 printf "\n${GREEN}\n############Running Enumeration Scripts############${NC}\n\n"
 ./Enum/db.sh
 ./Enum/inventory.sh
