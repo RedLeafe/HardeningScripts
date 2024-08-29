@@ -38,6 +38,7 @@ fi
 
 ipt=$(command -v iptables || command -v /sbin/iptables || command -v /usr/sbin/iptables)
 $ipt -P INPUT ACCEPT; $ipt -P OUTPUT ACCEPT ; $ipt -P FORWARD ACCEPT ; $ipt -F; $ipt -X
+save=$(command -v iptables-save || command -v /sbin/iptables-save || command -v /usr/sbin/iptables-save)
 
 
 printf "${GREEN}############Stolen Scripts############${NC}\n\n"
