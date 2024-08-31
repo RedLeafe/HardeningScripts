@@ -1,6 +1,6 @@
 #!/bin/bash
 
-read -p "Pw: " password
+read -p "Pw: " pass
 
 CHANGEPASSWORD() {
 	BIN=$( which chpasswd || which passwd )
