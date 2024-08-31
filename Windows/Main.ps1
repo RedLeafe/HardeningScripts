@@ -58,7 +58,7 @@ Write-Output $results
 .\Hardening\NullSession.ps1
 .\Hardening\php.ps1
 .\Hardening\SMB.ps1
-.\Hardening\Firewall.ps1
+#.\Hardening\Firewall.ps1
 
 Write-Output "`n#########################"
 Write-Output "#                       #"

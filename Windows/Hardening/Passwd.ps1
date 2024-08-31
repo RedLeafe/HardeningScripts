@@ -5,11 +5,11 @@ param(
 
     # Password for other accounts
     [Parameter(Mandatory = $true)]
-    [String]$P1,
+    [String]$AllPass,
 
     # Password for new user
     [Parameter(Mandatory = $true)]
-    [String]$P2
+    [String]$AdminPass
 )
 
 Add-Type -AssemblyName System.Web
@@ -30,14 +30,14 @@ if (!$DC) {
         $username = $user.Name
 
         try {
-            net user $username $P1 | Out-Null
+            net user $username $AllPass | Out-Null
             Write-Output "$Env:ComputerName [INFO] Password for user $username changed successfully"
         } catch {
             Write-Output "$Env:ComputerName [ERROR] Failed to change password for user $username. Error: $_"
         }
     }
 
-    net user $Admin $P2 /add /y | Out-Null
+    net user $Admin $AdminPass /add /y | Out-Null
     Write-Output "$Env:ComputerName [INFO] User $Admin created"
     net localgroup Administrators $Admin /add | Out-Null
     net localgroup "Remote Desktop Users" $Admin /add | Out-Null

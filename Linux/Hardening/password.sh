@@ -1,11 +1,6 @@
 #!/bin/bash
 
-ORAG='\033[0;33m'
-RED='\033[0;31m'
-GREEN='\033[0;32m'
-YELLOW='\033[1;33m'
-BLUE='\033[0;36m'
-NC='\033[0m'
+read -p "Pw: " password
 
 CHANGEPASSWORD() {
 	BIN=$( which chpasswd || which passwd )
@@ -17,12 +12,12 @@ CHANGEPASSWORD() {
 	sh -c "$CMD" >/dev/null 2>&1
 }
 
-printf "\n${BLUE}username,password${NC}\n"
+printf "\nusername,password\n"
 
 for u in $(cat /etc/passwd | grep -E "/bin/.*sh" | cut -d":" -f1); do 
-	pass=$(cat /dev/urandom | tr -dc '[:alpha:][:digit:]' | fold -w ${1:-20} | head -n 1)
+	# pass=$(cat /dev/urandom | tr -dc '[:alpha:][:digit:]' | fold -w ${1:-20} | head -n 1)
 	CHANGEPASSWORD $u $pass
-	printf "${ORAG}$u,$pass${NC}\n"
+	printf "$u,$pass\n"
 done	
 
 for u in $(cat /etc/passwd | grep -vE "/bin/.*sh" | cut -d":" -f1); do 

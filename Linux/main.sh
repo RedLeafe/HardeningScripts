@@ -67,8 +67,10 @@ wait
 printf "\n${GREEN}\n############Running Enumeration Scripts############${NC}\n\n"
 ./Enum/db.sh > /root/.cache/db
 cat /root/.cache/db
+
 ./Enum/inventory.sh > /root/.cache/inventory
 cat /root/.cache/inventory
+
 ./Enum/web.sh > /root/.cache/web
 cat /root/.cache/web
 
