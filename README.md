@@ -1,1 +1,1 @@
-Imported and modified scripts for securing and hardening Linux servers quickly for competition
+Imported and modified scripts for securing and hardening both Linux and Windows servers quickly for defense based cybersecurity competitions
