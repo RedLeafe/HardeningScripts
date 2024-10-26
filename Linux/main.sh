@@ -7,10 +7,15 @@ YELLOW='\033[1;33m'
 BLUE='\033[0;36m'
 NC='\033[0m'
 
+if [[ $UID -ne 0 ]]; then
+   printf "${RED}This script must be run as root. Please switch to the root user.${NC}" 
+   exit 1
+fi
+
 while getopts "hvi:" flag; do
   case $flag in
     h)
-      echo "Usage: main.sh [-i LocalNetwork] [-u UserIP]"
+      echo "Usage: main.sh [-i LocalNetwork]"
       exit 0
       ;;
     i)
@@ -31,7 +36,7 @@ while getopts "hvi:" flag; do
 done
 
 if [ -z "$LOCALNETWORK" ]; then
-	echo "Usage: main.sh [-i LocalNetwork] [-u UserIP]"
+	echo "Usage: main.sh [-i LocalNetwork]"
 	exit 1
 fi
 
@@ -64,7 +69,7 @@ wait
 
 printf "${GREEN}\n############Running Hardening Scripts############${NC}\n\n"
 ./Hardening/container.sh &
-./Hardening/cron.sh &
+./Hardening/cron.sh
 
 wait
 

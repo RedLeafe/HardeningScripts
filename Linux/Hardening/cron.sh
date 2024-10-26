@@ -8,7 +8,7 @@ YELLOW='\033[1;33m'
 BLUE='\033[0;36m'
 NC='\033[0m'
 
-sys=$(command -v service || command -v systemctl || command -v rc-service)
+sys=$(command -v systemctl || command -v rc-service || command -v service)
 
 CHECKERR() {
     if [ ! $? -eq 0 ]; then

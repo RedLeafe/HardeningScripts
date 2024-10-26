@@ -34,6 +34,9 @@ done
 sys=$(command -v service || command -v systemctl || command -v rc-service)
 
 for file in $(find / -name 'php.ini' 2>/dev/null); do
+	mkdir /root/.cache/php
+	cp $file /root/.cache/php/$file
+
 	echo "disable_functions = 1e, exec, system, shell_exec, passthru, popen, curl_exec, curl_multi_exec, parse_file_file, show_source, proc_open, pcntl_exec/" >> $file
 	echo "track_errors = off" >> $file
 	echo "html_errors = off" >> $file
