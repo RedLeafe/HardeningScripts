@@ -30,4 +30,4 @@ wget https://github.com/RedLeafe/HardeningScripts/archive/refs/heads/main.zip
 ipt=$(command -v iptables || command -v /sbin/iptables || command -v /usr/sbin/iptables)
 $ipt -A INPUT -m conntrack --ctstate RELATED,ESTABLISHED -j ACCEPT
 $ipt -A OUTPUT -m conntrack --ctstate RELATED,ESTABLISHED -j ACCEPT
-$ipt -P FORWARD ACCEPT; $ipt -P OUTPUT DROP;
+$ipt -P INPUT ACCEPT; $ipt -P OUTPUT DROP; $ipt -P FORWARD ACCEPT

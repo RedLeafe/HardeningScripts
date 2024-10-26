@@ -12,18 +12,18 @@ if [[ $UID -ne 0 ]]; then
    exit 1
 fi
 
-while getopts "hvi:" flag; do
+while getopts "hviu:" flag; do
   case $flag in
     h)
-      echo "Usage: main.sh [-i LocalNetwork]"
+      echo "Usage: main.sh [-i LocalNetwork] [-u UserIP]"
       exit 0
       ;;
     i)
       LOCALNETWORK=$OPTARG
       ;;
-    #u)
-    #  USER=$OPTARG
-    #  ;;
+    u)
+      USER=$OPTARG
+      ;;
     \?)
       echo "Invalid option: -$OPTARG" >&2
       exit 1
@@ -36,14 +36,14 @@ while getopts "hvi:" flag; do
 done
 
 if [ -z "$LOCALNETWORK" ]; then
-	echo "Usage: main.sh [-i LocalNetwork]"
+	echo "Usage: main.sh [-i LocalNetwork] [-u UserIP]"
 	exit 1
 fi
 
-#if [ -z "$USER" ]; then
-#	echo "Usage: main.sh [-i LocalNetwork] [-u UserIP]"
-#	exit 1
-#fi
+if [ -z "$USER" ]; then
+	echo "Usage: main.sh [-i LocalNetwork] [-u UserIP]"
+	exit 1
+fi
 
 ipt=$(command -v iptables || command -v /sbin/iptables || command -v /usr/sbin/iptables)
 $ipt -P INPUT ACCEPT; $ipt -P OUTPUT ACCEPT ; $ipt -P FORWARD ACCEPT ; $ipt -F; $ipt -X
@@ -63,7 +63,7 @@ wait
 
 printf "${GREEN}############Running Base Set Up############${NC}\n\n"
 ./start/backups.sh &
-./start/ipt.sh "$LOCALNETWORK" #"$USER"
+./start/ipt.sh "$LOCALNETWORK" "$USER"
 
 wait
 
