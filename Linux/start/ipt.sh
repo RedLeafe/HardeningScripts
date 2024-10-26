@@ -64,7 +64,7 @@ $ipt -A MAYBESUS -j DROP
 # Drop inbound to certain ports from outside of trusted network
 # Some auth ports
 $ipt -A INPUT -p tcp -m multiport --dports 23,139,445,443, 4433, 9000,9090 -j MAYBESUS
-$ipt -A INPUT -p tcp --dport 22 -j MAYBESUS # Risky business
+#$ipt -A INPUT -p tcp --dport 22 -j MAYBESUS # Risky business
 
 # DB Ports 
 $ipt -A INPUT -p tcp -m multiport --dports 1433,3306,5432 -j MAYBESUS
