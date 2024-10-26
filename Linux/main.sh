@@ -10,21 +10,20 @@ NC='\033[0m'
 while getopts "hvi:" flag; do
   case $flag in
     h)
-      # Display script help information
-      echo "Usage: main.sh [-i LocalNetwork]"
+      echo "Usage: main.sh [-i LocalNetwork] [-u UserIP]"
       exit 0
       ;;
     i)
-      # Handle the -f flag with an argument
       LOCALNETWORK=$OPTARG
       ;;
+    u)
+      USER=$OPTARG
+      ;;
     \?)
-      # Handle invalid options
       echo "Invalid option: -$OPTARG" >&2
       exit 1
       ;;
     :)
-      # Handle missing option argument
       echo "Option -$OPTARG requires an argument." >&2
       exit 1
       ;;
@@ -32,14 +31,17 @@ while getopts "hvi:" flag; do
 done
 
 if [ -z "$LOCALNETWORK" ]; then
-	echo "Usage: main.sh [-i LocalNetwork]"
+	echo "Usage: main.sh [-i LocalNetwork] [-u UserIP]"
+	exit 1
+fi
+
+if [ -z "$USER" ]; then
+	echo "Usage: main.sh [-i LocalNetwork] [-u UserIP]"
 	exit 1
 fi
 
 ipt=$(command -v iptables || command -v /sbin/iptables || command -v /usr/sbin/iptables)
 $ipt -P INPUT ACCEPT; $ipt -P OUTPUT ACCEPT ; $ipt -P FORWARD ACCEPT ; $ipt -F; $ipt -X
-save=$(command -v iptables-save || command -v /sbin/iptables-save || command -v /usr/sbin/iptables-save)
-
 
 printf "${GREEN}############Stolen Scripts############${NC}\n\n"
 
@@ -50,36 +52,30 @@ find . -type f -name "*.sh" -exec chmod +x {} \;
 
 printf "${GREEN}\n############Running Updates############${NC}\n\n"
 ./start/updates.sh &
+./Hardening/pam.sh
+
+wait
 
 printf "${GREEN}############Running Base Set Up############${NC}\n\n"
 ./start/backups.sh &
-./start/ipt.sh "$LOCALNETWORK"
+./start/ipt.sh "$LOCALNETWORK" "$USER"
 
 wait
 
 printf "${GREEN}\n############Running Hardening Scripts############${NC}\n\n"
 ./Hardening/container.sh &
 ./Hardening/cron.sh &
-./Hardening/pam.sh
 
 wait
 
 printf "\n${GREEN}\n############Running Enumeration Scripts############${NC}\n\n"
 ./Enum/db.sh > /root/.cache/db
-cat /root/.cache/db
+echo "db enumeration > /root/.cache/db"
 
 ./Enum/inventory.sh > /root/.cache/inventory
-cat /root/.cache/inventory
+echo "inventory > /root/.cache/inventory"
 
 ./Enum/web.sh > /root/.cache/web
-cat /root/.cache/web
+echo "web enumeration /root/.cache/web"
 
 printf "\n\n${GREEN}############Completed Initial Configuration############${NC}\n\n"
-
-DEBIAN_FRONTEND=noninteractive apt-get -y install iptables-persistent
-
-$ipt -P FORWARD ACCEPT; $ipt -P OUTPUT DROP;
-
-$save > /etc/iptables/rules.v4
-
-systemctl start reboot.target

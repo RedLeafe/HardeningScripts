@@ -11,6 +11,7 @@ NC='\033[0m'
 ipt=$(command -v iptables || command -v /sbin/iptables || command -v /usr/sbin/iptables)
 save=$(command -v iptables-save || command -v /sbin/iptables-save || command -v /usr/sbin/iptables-save)
 LOCALNETWORK=$1
+DISPATCHER=$2
 
 CHECKERR() {
     if [ ! $? -eq 0 ]; then
@@ -19,6 +20,11 @@ CHECKERR() {
         exit 1
     fi
 }
+
+if [ -z "$DISPATCHER" ]; then
+    echo "DISPATCHER not defined."
+    exit 1
+fi
 
 if [ -z "$ipt" ]; then
     echo "NO IPTABLES ON THIS SYSTEM, GOOD LUCK"
@@ -30,6 +36,9 @@ $save > /root/.cache/rules.v4
 
 $ipt -A INPUT -m conntrack --ctstate RELATED,ESTABLISHED -j ACCEPT
 $ipt -A OUTPUT -m conntrack --ctstate RELATED,ESTABLISHED -j ACCEPT
+
+$ipt -A INPUT -p tcp --dport 22 -s $DISPATCHER -j ACCEPT
+CHECKERR
 
 $ipt -A OUTPUT -d 127.0.0.1,$LOCALNETWORK -m conntrack --ctstate NEW -j ACCEPT 
 CHECKERR
@@ -54,7 +63,7 @@ $ipt -A MAYBESUS -j DROP
 
 # Drop inbound to certain ports from outside of trusted network
 # Some auth ports
-$ipt -A INPUT -p tcp -m multiport --dports 23,139,445,9000,9090 -j MAYBESUS
+$ipt -A INPUT -p tcp -m multiport --dports 23,139,445,443, 4433, 9000,9090 -j MAYBESUS
 $ipt -A INPUT -p tcp --dport 22 -j MAYBESUS # Risky business
 
 # DB Ports 
@@ -76,6 +85,8 @@ fi
 ###
 
 printf "${RED}Completed ip-tables${NC}\n"
+
+$ipt -P FORWARD ACCEPT; $ipt -P OUTPUT DROP;
 
 $save > /opt/rules.v4
 $save > /root/.cache/rules.v4
